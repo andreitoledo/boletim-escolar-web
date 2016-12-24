@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="titulo">#{cadastroAlunoBean.editando ? 'Edição aluno' : 'Novo aluno'}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="aluno" value="#{cadastroAlunoBean.aluno}" />
+			<f:viewAction action="#{cadastroAlunoBean.inicializar}" />
+		</f:metadata>
+		
+		<br />
+		<h2>#{cadastroAlunoBean.editando ? 'Edição aluno' : 'Novo aluno'}</h2>
+
+		<h:form id="frmCadastro">
+		
+		<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroAlunoBean.salvar}" 
+						update="frmCadastro" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/aluno/PesquisaAlunos.xhtml" />
+				</p:toolbarGroup>
+
+			</p:toolbar>			
+
+			<div class="ui-fluid">
+				<p:panelGrid id="capaPanel" columns="4" layout="grid"
+					style="margin-top: 20px; margin-bottom: 20px"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" placeholder="nome do aluno" value="#{cadastroAlunoBean.aluno.nome}" />
+
+					<p:outputLabel value="Data de Nascimento" for="dataNascimento" />
+					<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
+						value="#{cadastroAlunoBean.aluno.dataNascimento}" />
+
+					<p:outputLabel value="Natural" for="naturalidade" />
+					<p:inputText id="naturalidade" placeholder="cidade/estado"
+						value="#{cadastroAlunoBean.aluno.naturalidade}" />
+
+					<p:outputLabel value="RG" for="iscricaoEstadual" />
+					<p:inputText id="iscricaoEstadual"
+						value="#{cadastroAlunoBean.aluno.iscricaoEstadual}" />
+
+					<p:outputLabel value="Sexo" for="tipoSexo" />
+					<p:selectOneMenu id="tipoSexo"
+						value="#{cadastroAlunoBean.aluno.tipoSexo}">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroAlunoBean.tipoSexos}"
+							var="tipoSexo" itemLabel="#{tipoSexo.descricao}"
+							itemValue="#{tipoSexo}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Pai" for="pai" />
+					<p:inputText id="pai" value="#{cadastroAlunoBean.aluno.pai}" />
+
+					<p:outputLabel value="Mãe" for="mae" />
+					<p:inputText id="mae" value="#{cadastroAlunoBean.aluno.mae}" />
+					
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" value="#{cadastroAlunoBean.aluno.email}" />
+					
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone" mask="99-9999-9999" value="#{cadastroAlunoBean.aluno.telefone}" />					
+					
+					<p:outputLabel value="Celular" for="celular" />
+					<p:inputMask id="celular" mask="99-99999-9999" value="#{cadastroAlunoBean.aluno.celular}" />
+
+				</p:panelGrid>
+				
+				<!-- inicio guia ENDERECO -->
+
+				<p:tabView>
+				<p:tab title="Endereço">
+					<p:panelGrid id="gridEndereco" columns="6" layout="grid"
+						style="width: 100%; margin-top: 5px margin-bottom: 10px" 
+						styleClass="panelgrid-noborder" 
+						columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-1, ui-grid-col-3, ui-grid-col-1, ui-grid-col-2">
+						
+							<p:outputLabel value="Tipo Logradouro" for="tipoLogradouro" />							
+							<p:selectOneMenu id="tipoLogradouro"
+								value="#{cadastroAlunoBean.aluno.tipoLogradouro}">
+								<f:selectItem itemLabel="Selecione" />
+								<f:selectItems value="#{cadastroAlunoBean.tipoLogradouros}"
+									var="tipoLogradouro" itemLabel="#{tipoLogradouro.descricao}"
+									itemValue="#{tipoLogradouro}" />
+							</p:selectOneMenu>
+						
+							<p:outputLabel value="Logradouro" for="logradouro" />							
+							<p:inputText id="logradouro" placeholder="endereço" size="60" maxlength="60"
+								value="#{cadastroAlunoBean.aluno.logradouro}" />
+						
+							<p:outputLabel value="Numero" for="numero" />							
+							<p:inputText id="numero" size="10" maxlength="10"
+								value="#{cadastroAlunoBean.aluno.numero}" />
+						
+							<p:outputLabel value="Complemento" for="complemento" />							
+							<p:inputText id="complemento" placeholder="andar/apartamento/referência" size="60" maxlength="60"
+								value="#{cadastroAlunoBean.aluno.complemento}" />
+						
+							<p:outputLabel value="Bairro" for="bairro" />							
+							<p:inputText id="bairro" size="40" maxlength="40"
+								value="#{cadastroAlunoBean.aluno.bairro}" />
+						
+							<h:outputText value="CEP" />							
+							<p:inputMask mask="99999-999" size="9" maxlength="9"
+								value="#{cadastroAlunoBean.aluno.cep}" />
+						
+							<p:outputLabel value="Cidade" for="cidade" />							
+							<p:inputText id="cidade" size="40" maxlength="40"
+								value="#{cadastroAlunoBean.aluno.cidade}" />
+						
+							<p:outputLabel value="UF" for="uf" />							
+							<p:inputText id="uf" size="2" maxlength="2"
+								value="#{cadastroAlunoBean.aluno.uf}" />
+						
+							<p:outputLabel value="Pais" for="pais" />							
+							<p:inputText id="pais" size="40" maxlength="40"
+								value="#{cadastroAlunoBean.aluno.pais}" />
+								
+					</p:panelGrid>
+				</p:tab>
+				</p:tabView>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,183 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="titulo">#{cadastroLancamentoBean.editando ? 'Edição lancamento' : 'Novo lancamento'}</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="lancamento"
+				value="#{cadastroLancamentoBean.lancamento}" />
+			<f:viewAction action="#{cadastroLancamentoBean.inicializar}" />
+		</f:metadata>
+
+		<br />
+		<h2>#{cadastroLancamentoBean.editando ? 'Edição lancamento' :
+			'Novo lancamento'}</h2>
+
+		<h:form id="frmCadastro">
+
+			<!-- <p:messages id="messages" autoUpdate="true" closable="true" /> -->
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroLancamentoBean.salvar}"
+						process="@this capaPanel" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/lancamento/PesquisaLancamentos.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:messages autoUpdate="false" closable="true" />
+
+			<div class="ui-fluid">
+				<p:panelGrid id="capaPanel" columns="4" layout="grid"
+					style="margin-top: 20px; margin-bottom: 40px"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Aluno" for="aluno" />
+					<p:selectOneMenu id="aluno"
+						value="#{cadastroLancamentoBean.lancamento.aluno}">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroLancamentoBean.alunos}"
+							var="alunos" itemLabel="#{alunos.nome}" itemValue="#{alunos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="RA/RG" for="ra" />
+					<p:inputText id="ra"
+						value="#{cadastroLancamentoBean.lancamento.ra}" />
+
+					<p:outputLabel value="Data de Nascimento" for="dataNascimento" />
+					<p:calendar id="dataNascimento" pattern="dd/MM/yyyy"
+						value="#{cadastroLancamentoBean.lancamento.dataNascimento}" />
+
+					<p:outputLabel value="Ano Escolar" for="tipoAnoEscolar" />
+					<p:selectOneMenu id="tipoAnoEscolar"
+						value="#{cadastroLancamentoBean.lancamento.tipoAnoEscolar}">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroLancamentoBean.tipoAnoEscolars}"
+							var="tipoAnoEscolar" itemLabel="#{tipoAnoEscolar.descricao}"
+							itemValue="#{tipoAnoEscolar}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Classe" for="tipoClasse" />
+					<p:selectOneMenu id="tipoClasse"
+						value="#{cadastroLancamentoBean.lancamento.tipoClasse}">
+						<f:selectItem itemLabel="Selecione" />
+						<f:selectItems value="#{cadastroLancamentoBean.tipoClasses}"
+							var="tipoClasse" itemLabel="#{tipoClasse.descricao}"
+							itemValue="#{tipoClasse}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Número" for="numero" />
+					<p:inputText id="numero"
+						value="#{cadastroLancamentoBean.lancamento.numero}" />
+
+					<p:outputLabel value="Ano Letivo" for="anoLetivo" />
+					<p:inputText id="anoLetivo"
+						value="#{cadastroLancamentoBean.lancamento.anoLetivo}" />
+
+				</p:panelGrid>
+			</div>
+
+			<p:commandButton value="Lançar Notas"
+				action="#{cadastroLancamentoBean.novoItem}"
+				oncomplete="PF('itemDialog').show()" process="@this"
+				upadate="itemPanel">
+				<p:resetInput target="itemPanel" />
+			</p:commandButton>
+
+			<!-- dataTable para receber os dados do dialogo -->
+			<p:dataTable id="itensTable"
+				value="#{cadastroLancamentoBean.lancamento.itens}" var="item"
+				emptyMessage="Nenhuma nota adicionada." reflow="true"
+				style="margin-top: 10px">
+
+				<p:column headerText="Bimestre">
+					<h:outputText value="#{item.tipoBimestre.descricao}" />
+				</p:column>
+
+				<p:column headerText="Disciplina">
+					<h:outputText value="#{item.disciplina.nome}" />
+				</p:column>
+
+				<p:column headerText="Nota">
+					<h:outputText value="#{item.nota}" />
+				</p:column>
+
+				<p:column headerText="Falta">
+					<h:outputText value="#{item.falta}" />
+				</p:column>
+
+				<p:column headerText="Comp. Ausência">
+					<h:outputText value="#{item.compensacaoAusencia}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<!-- dialog, onde cadastra as notas -->
+			<p:dialog widgetVar="itemDialog" header="Novo item" resizable="false"
+				style="min-width: 300px" responsive="true">
+
+				<h:panelGroup id="itemPanel" layout="block" styleClass="ui-fluid">
+					<p:messages id="msgDialog" autoUpdate="false" />
+
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-4, ui-grid-col-8">
+
+						<p:outputLabel value="Bimestre" for="tipoBimestre" />
+						<p:selectOneMenu id="tipoBimestre"
+							value="#{cadastroLancamentoBean.item.tipoBimestre}">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItems value="#{cadastroLancamentoBean.tipoBimestres}"
+								var="tipoBimestre" itemLabel="#{tipoBimestre.descricao}"
+								itemValue="#{tipoBimestre}" />								
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Disciplina" for="disciplina" />
+						<p:selectOneMenu id="disciplina"
+							value="#{cadastroLancamentoBean.item.disciplina}">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItems value="#{cadastroLancamentoBean.disciplinas}"
+								var="disciplinas" itemLabel="#{disciplinas.nome}"
+								itemValue="#{disciplinas}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nota" for="nota" />
+						<p:inputText id="nota" value="#{cadastroLancamentoBean.item.nota}" />
+
+						<p:outputLabel value="Falta" for="falta" />
+						<p:inputText id="falta"
+							value="#{cadastroLancamentoBean.item.falta}" />
+
+						<p:outputLabel value="Comp. Ausência" for="compensacaoAusencia" />
+						<p:inputText id="compensacaoAusencia"
+							value="#{cadastroLancamentoBean.item.compensacaoAusencia}" />
+
+						<p:outputLabel />
+						<p:commandButton value="Adicionar"
+							action="#{cadastroLancamentoBean.adicionarItem}"
+							process="itemPanel" update="itemPanel itensTable"
+							oncomplete="if (!args.validationFailed) PF('itemDialog').hide()" />
+
+					</p:panelGrid>
+
+				</h:panelGroup>
+
+			</p:dialog>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="titulo">Pesquisa de lancamento</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewAction action="#{cadastroLancamentoBean.inicializar}" />
+		</f:metadata>
+
+		<p>
+		<h2 class="aw-page-title">Pesquisa de Lancamentos</h2>
+		</p>
+
+
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/lancamento/CadastroLancamento" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="lancamentosTable"
+				value="#{pesquisaLancamentoBean.lancamentos}" var="lancamento"
+				style="margin-top: 20px"
+				emptyMessage="Nenhum lancamento encontrado." rows="5"
+				paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom">
+
+				<p:column headerText="Lançamento"
+					style="text-align: center; width: 100px"
+					sortBy="#{lancamento.codigo}" filterBy="#{lancamento.codigo}">
+					<h:outputText value="#{lancamento.codigo}" />
+				</p:column>
+
+				<p:column headerText="Cadastro do Aluno" priority="4">
+					<h:outputText value="#{lancamento.aluno}" />
+				</p:column>
+
+				<p:column headerText="Aluno" priority="2"
+					sortBy="#{lancamento.aluno.nome}"
+					filterBy="#{lancamento.aluno.nome}">
+					<h:outputText value="#{lancamento.aluno.nome}" />
+				</p:column>
+				
+				<p:column headerText="Ano Escolar" priority="5"
+				sortBy="#{lancamento.tipoAnoEscolar.descricao}" filterBy="#{lancamento.tipoAnoEscolar.descricao}">
+					<h:outputText value="#{lancamento.tipoAnoEscolar.descricao}" />
+				</p:column>
+
+				<p:column headerText="Ano Letivo" priority="3"
+				sortBy="#{lancamento.anoLetivo}" filterBy="#{lancamento.anoLetivo}">
+					<h:outputText value="#{lancamento.anoLetivo}" />
+				</p:column>
+
+				<!-- botões editar/excluir -->
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button outcome="CadastroLancamento" icon="ui-icon-pencil"
+						title="Editar">
+						<f:param name="lancamento" value="#{lancamento.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+						update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener
+							target="#{pesquisaLancamentoBean.lancamentoSelecionado}"
+							value="#{lancamento}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:confirmDialog id="confirmacaoExclusaoDialog"
+				widgetVar="confirmacaoExclusao"
+				message="Tem certeza que deseja excluir o lancamento #{pesquisaLancamentoBean.lancamentoSelecionado.aluno.nome} ?"
+				header="Exclusão de disciplina" severity="alert">
+				<p:button value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
+				<p:commandButton value="Sim" update=":frmPesquisa:lancamentosTable"
+					onclick="PF('confirmacaoExclusao').hide()"
+					action="#{pesquisaLancamentoBean.excluir}" />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

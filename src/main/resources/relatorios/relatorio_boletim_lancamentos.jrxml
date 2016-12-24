@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-24T12:32:21 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_boletim_lancamentos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="403d791f-b749-411b-b99a-f58f5ad59683">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="345"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="647"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BoletimConexaoAdaper"/>
+	<parameter name="LANCAMENTO_CODIGO" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT boletim_escolar.aluno.codigo AS codigo_aluno,
+	boletim_escolar.aluno.data_nascimento,
+	boletim_escolar.aluno.inscricao_estadual,
+	boletim_escolar.aluno.nome AS nome_aluno,
+	boletim_escolar.lancamento.numero,
+	boletim_escolar.lancamento.ano_letivo,
+	boletim_escolar.lancamento.tipo_ano_escolar,
+	boletim_escolar.lancamento.tipo_classe,
+	boletim_escolar.lancamento_item.compensacao_ausencia,
+	boletim_escolar.lancamento_item.falta,
+	boletim_escolar.lancamento_item.nota,
+	boletim_escolar.lancamento_item.`tipoBimestre`,
+	boletim_escolar.disciplina.nome AS nome_disciplina,
+	boletim_escolar.lancamento.codigo AS codigo_lancamento
+FROM boletim_escolar.lancamento_item
+	INNER JOIN boletim_escolar.lancamento ON 
+	 boletim_escolar.lancamento_item.lancamento_codigo = boletim_escolar.lancamento.codigo 
+	INNER JOIN boletim_escolar.aluno ON 
+	 boletim_escolar.lancamento.codigo_aluno = boletim_escolar.aluno.codigo 
+	INNER JOIN boletim_escolar.disciplina ON 
+	 boletim_escolar.lancamento_item.codigo_disciplina = boletim_escolar.disciplina.codigo 
+WHERE 
+	 boletim_escolar.lancamento.codigo = $P{LANCAMENTO_CODIGO} 
+ORDER BY boletim_escolar.disciplina.nome ASC]]>
+	</queryString>
+	<field name="codigo_aluno" class="java.lang.Long"/>
+	<field name="data_nascimento" class="java.sql.Date"/>
+	<field name="inscricao_estadual" class="java.lang.String"/>
+	<field name="nome_aluno" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="ano_letivo" class="java.lang.Integer"/>
+	<field name="tipo_ano_escolar" class="java.lang.String"/>
+	<field name="tipo_classe" class="java.lang.String"/>
+	<field name="compensacao_ausencia" class="java.lang.Integer"/>
+	<field name="falta" class="java.lang.Integer"/>
+	<field name="nota" class="java.lang.Double"/>
+	<field name="tipoBimestre" class="java.lang.String"/>
+	<field name="nome_disciplina" class="java.lang.String"/>
+	<field name="codigo_lancamento" class="java.lang.Long"/>
+	<title>
+		<band height="109" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="2" width="143" height="77" uuid="9e63ed1f-e67a-4d53-8a4f-b66f92c220cb"/>
+				<imageExpression><![CDATA["C:/Users/andrei/workspace4/boletim-escolar-web/src/main/webapp/resources/andreitoledo/images/logo_boletim_escolar_1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="1" width="600" height="28" uuid="9af765d8-1fe7-41a9-9202-f96f655c98b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Escola Debugando o Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="30" width="600" height="20" uuid="318cd907-70c4-4daf-9cc9-1df6f8bb19de"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Educação Infantil - Ensino Fundamental]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="52" width="600" height="57" uuid="a38e16e5-7c07-47b6-a1b5-720614faec99"/>
+				<textElement textAlignment="Center" verticalAlignment="Justified"/>
+				<text><![CDATA[Reconhecimento Portaria CEI de 03/12/85
+Rua Jucumbira, 1025 - Vila Caiçara
+CEP: 11584-869 - Fone (11) 3544-8536 - São Paulo/SP
+Diretoria de Ensino de São Paulo]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="2" width="600" height="28" uuid="dead568b-b41b-46a1-a42b-330b749e80b1"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Justified">
+					<font size="18" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[BOLETIM ESCOLAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="40" width="70" height="21" uuid="4df98320-888c-4883-9b8d-4a0a03ca6de2"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Letivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="18" uuid="833619d9-46c3-43c7-821f-75eb11a88cef"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno(a)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="70" width="320" height="18" forecolor="#190FF0" uuid="88daa3ad-3ca6-41af-8442-c8567e866e7c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="70" width="103" height="18" uuid="feb362da-fa3e-454e-b696-62b0329abd86"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dt. Nascimento]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="523" y="70" width="77" height="18" uuid="19d156b1-d977-4ea2-92bb-884a2945ac05"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_nascimento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="600" y="70" width="100" height="18" uuid="76e1ad5a-9dbe-484e-9f1e-8172c060afe0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="70" width="98" height="18" uuid="28989561-078f-461d-b26f-3055e7289a48"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="89" width="100" height="21" uuid="40735058-857c-41d5-bd7f-e3ccead12d76"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RA/RG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="89" width="320" height="21" uuid="5000ac6c-2712-4a78-93bf-a27e79a70c2a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inscricao_estadual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="89" width="103" height="21" uuid="e4f9e010-4239-4fce-b67f-7d1358615934"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ano Escolar]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="523" y="89" width="234" height="21" uuid="25630fef-a4ab-48cb-b969-3ba49e6ee415"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_ano_escolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="757" y="89" width="40" height="21" uuid="237c9a53-71fc-4363-a5b8-1221a369384d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_classe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="40" width="128" height="21" forecolor="#1900FF" uuid="503bdb3d-ca19-47c9-ad84-ea4976c4872f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano_letivo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="103" y="41" width="77" height="18" forecolor="#1900FF" uuid="ca225140-afc8-41a4-8789-1f4a31e809e3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_lancamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="41" width="102" height="18" uuid="3bb18c82-6dd4-4697-806e-ae149f7edc7a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lançamento]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="3" width="220" height="30" backcolor="#96D4F2" uuid="bfabe49c-4b3f-4747-a83c-0acd69573e9d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="221" y="3" width="248" height="30" backcolor="#96D4F2" uuid="5ffdc432-45a6-4bbb-8acf-b350a8d02e26"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bimestre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="469" y="2" width="110" height="30" backcolor="#96D4F2" uuid="430be133-09f5-42f0-9685-17c995c2a1a8"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="579" y="2" width="115" height="30" backcolor="#96D4F2" uuid="1ab923df-f554-4734-93b2-a0e7ae68078e"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Falta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="694" y="2" width="110" height="30" backcolor="#96D4F2" uuid="7d2e2777-d16c-4c44-b096-4a6e4d1ad1ce"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comp. Ausência]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="3" width="219" height="29" uuid="13217ce5-f1f9-429c-bb1e-5db35bdd3097"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_disciplina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="2" width="248" height="30" uuid="6e13bb56-e6d5-4f72-abb8-e5b187cc3204"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoBimestre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="469" y="0" width="110" height="32" uuid="4c1b5739-e69d-4e29-a1f4-4d4d807113a0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="579" y="1" width="115" height="31" uuid="9e6edbaf-2c34-4f78-877a-7469416db978"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{falta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="694" y="2" width="110" height="30" uuid="e1d59a13-1f00-4783-81f6-26abd5597a0b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compensacao_ausencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="5" width="842" height="25" uuid="8c382155-4630-4b16-a58e-c3217e35fde9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Este documento só terá validade sem emendas, nem rasuras.]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="580" y="33" width="218" height="20" uuid="8e1dbe06-6668-4c20-887f-b2d46e9d559b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
