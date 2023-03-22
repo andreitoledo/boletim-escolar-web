@@ -1,11 +1,11 @@
-# boletim-escolar-web
-# Boletim Escolar Web com Java EE + (modo responsivo) do Primefaces 
+### Boletim Escolar Web com Java EE + (modo responsivo) do Primefaces 
 
 #### Sobre:
 
-Em um sistema simples de Lançamento de Notas Escolares para trazer um Boletim Escolar, passando pelo cadastro de Alunos e Disciplinas, alguns Enumns para ajudar na autonomia do projeto, chegaremos ao relatório desenvolvido em JasperSoft, trazendo um simples boletim dos alunos. Claro, esse sisteminha simples foi feito com intuíto didático, fiquem a (vostes) para baixar, melhorar, usar o layout para outros sistemas, etc... 
+> ### Em um sistema simples de Lançamento de Notas Escolares para trazer um Boletim Escolar, passando pelo cadastro de Alunos e Disciplinas, alguns Enumns para ajudar na > ### autonomia do projeto, chegaremos ao relatório desenvolvido em JasperSoft, trazendo um simples boletim dos alunos. Claro, esse sisteminha simples foi feito com  
+> ### intuíto didático, fiquem a (vostes) para baixar, melhorar, usar o layout para outros sistemas, etc...
 
-O mais legal desse sistema é que ele tem um layout responsivo, usando recursos do Primefaces, encaixando em qualquer dispositivo móvel.
+> ### O mais legal desse sistema é que ele tem um layout responsivo, usando recursos do Primefaces, encaixando em qualquer dispositivo móvel.
 
 #### Tecnologias:
 Sistema desenvolvido utilizando uma plataforma baseada na tecnologia Java EE.
@@ -25,8 +25,8 @@ Sistema desenvolvido utilizando uma plataforma baseada na tecnologia Java EE.
 - jasper Reports Fonts 6.0.0
 - JUnit 4.11
 
-#### @author:
-Andrei Toledo
-andreiltoledo@hotmail.com
-
-Analista e Desenvolvedor de Sistemas Java EE
+----
+>#### @author:                             
+>#### Andrei Toledo                        
+>#### Analista e Desenvolvedor de Sistemas 
+----
