@@ -2,10 +2,10 @@
 
 #### Sobre:
 
-> ### Em um sistema simples de Lançamento de Notas Escolares para trazer um Boletim Escolar, passando pelo cadastro de Alunos e Disciplinas, alguns Enumns para ajudar na > ### autonomia do projeto, chegaremos ao relatório desenvolvido em JasperSoft, trazendo um simples boletim dos alunos. Claro, esse sisteminha simples foi feito com  
-> ### intuíto didático, fiquem a (vostes) para baixar, melhorar, usar o layout para outros sistemas, etc...
+> #### Em um sistema simples de Lançamento de Notas Escolares para trazer um Boletim Escolar, passando pelo cadastro de Alunos e Disciplinas, alguns Enumns para ajudar na > #### autonomia do projeto, chegaremos ao relatório desenvolvido em JasperSoft, trazendo um simples boletim dos alunos. Claro, esse sisteminha simples foi feito com  
+> #### intuíto didático, fiquem a (vostes) para baixar, melhorar, usar o layout para outros sistemas, etc...
 
-> ### O mais legal desse sistema é que ele tem um layout responsivo, usando recursos do Primefaces, encaixando em qualquer dispositivo móvel.
+> #### O mais legal desse sistema é que ele tem um layout responsivo, usando recursos do Primefaces, encaixando em qualquer dispositivo móvel.
 
 #### Tecnologias:
 Sistema desenvolvido utilizando uma plataforma baseada na tecnologia Java EE.
